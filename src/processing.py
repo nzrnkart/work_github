@@ -2,7 +2,7 @@ from typing import List, Dict, Optional
 from datetime import datetime
 
 
-def filter_by_state(items: List[Dict], state: str = 'EXECUTED') -> List[Dict]:
+def filter_by_state(items: List[Dict], state: str = "EXECUTED") -> List[Dict]:
     """
     Фильтрует список операций по статусу.
 
@@ -27,6 +27,7 @@ def sort_by_date(data: List[Dict], ascending: bool = False) -> List[Dict]:
     Returns:
         Новый список словарей, отсортированных по дате.
     """
+
     def parse_date(item: Dict) -> datetime:
         date_str = item.get("date")
         if date_str:
@@ -41,10 +42,10 @@ def sort_by_date(data: List[Dict], ascending: bool = False) -> List[Dict]:
 
 if __name__ == "__main__":
     operations = [
-        {'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
-        {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'},
-        {'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'},
-        {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'},
+        {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
+        {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
+        {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
+        {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
     ]
 
     # Пример работы функции filter_by_state
@@ -52,7 +53,7 @@ if __name__ == "__main__":
     print("Фильтрованные операции со статусом по умолчанию 'EXECUTED':")
     print(filtered_operations_default)
 
-    filtered_operations_canceled = filter_by_state(operations, 'CANCELED')
+    filtered_operations_canceled = filter_by_state(operations, "CANCELED")
     print("\nФильтрованные операции со статусом 'CANCELED':")
     print(filtered_operations_canceled)
 

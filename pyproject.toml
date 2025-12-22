@@ -30,3 +30,6 @@ exclude = """ \\.git """
 
 [tool.isort]
 line_length = 119
+[tool.poetry.group.dev.dependencies]
+pytest = "^9.0.2"
+
