@@ -1,14 +1,15 @@
 import re
 from datetime import datetime
+
 from src.masks import get_mask_account, get_mask_card_number  # Импортируем функции
 
 
 def mask_card_or_account(text: str) -> str:
     """Обрабатывает текст, маскируя номера карт и счетов."""
     # Проверяем, есть ли слово "Счет" или "Счёт"
-    is_account = re.search(r'\bСчет\b|\bСчёт\b', text, re.IGNORECASE)
+    is_account = re.search(r"\bСчет\b|\bСчёт\b", text, re.IGNORECASE)
     # Ищем все цифры подряд
-    numbers = re.findall(r'\d+', text)
+    numbers = re.findall(r"\d+", text)
     if not numbers:
         return text  # Нет чисел — возвращаем как есть
 
