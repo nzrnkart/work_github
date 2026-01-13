@@ -67,3 +67,77 @@ git push origin имя_вашей_ветки
 - Запустите тесты: pytest.
 - Для проверки покрытия: pytest --cov=src --cov-report=html. 
 - Отчет будет сгенерирован в папке htmlcov/ (откройте index.html в браузере).
+
+
+# Были добавлены новые функции (filter_by_currency, transaction_descriptions, card_number_generator) в новый модуль generators
+
+# filter_by_currency: 
+-Функция обрабатывает список словарей по ключу "code" и значению "USD"
+ 
+# Пример использования: 
+
+
+usd_transactions = filter_by_currency(transactions, "USD")
+for _ in range(2):
+    print(next(usd_transactions))
+
+>>> {
+          "id": 939719570,
+          "state": "EXECUTED",
+          "date": "2018-06-30T02:08:58.425572",
+          "operationAmount": {
+              "amount": "9824.07",
+              "currency": {
+                  "name": "USD",
+                  "code": "USD"
+              }
+          },
+          "description": "Перевод организации",
+          "from": "Счет 75106830613657916952",
+          "to": "Счет 11776614605963066702"
+      }
+      {
+              "id": 142264268,
+              "state": "EXECUTED",
+              "date": "2019-04-04T23:20:05.206878",
+              "operationAmount": {
+                  "amount": "79114.93",
+                  "currency": {
+                      "name": "USD",
+                      "code": "USD"
+                  }
+              },
+              "description": "Перевод со счета на счет",
+              "from": "Счет 19708645243227258542",
+              "to": "Счет 75651667383060284188"
+       }
+# transaction_descriptions
+-Функция проходит по словарю и по ключу "description" отдаёт соответсвующее значение.
+
+
+# Пример использования: 
+
+descriptions = transaction_descriptions(transactions)
+for _ in range(5):
+    print(next(descriptions))
+
+>>> Перевод организации
+    Перевод со счета на счет
+    Перевод со счета на счет
+    Перевод с карты на карту
+    Перевод организации
+
+# card_number_generator
+-Функция(генератор) будет возвращать строку из 16 символов-цифр, так что разобьет строку по 4 симвора, разделитель - пробел.
+
+
+# Пример использования:
+
+for card_number in card_number_generator(1, 5):
+    print(card_number)
+
+>>> 0000 0000 0000 0001
+    0000 0000 0000 0002
+    0000 0000 0000 0003
+    0000 0000 0000 0004
+    0000 0000 0000 0005

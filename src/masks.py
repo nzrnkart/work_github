@@ -12,9 +12,9 @@ def get_mask_card_number(card_number: Union[str, int]) -> str:
         Замаскированный номер карты или строка ошибки
     """
     value = str(card_number).strip()
-    cleaned = ''.join(value.split())
+    cleaned = "".join(value.split())
 
-    if '*' in cleaned:
+    if "*" in cleaned:
         return value
 
     if not cleaned:
@@ -42,9 +42,9 @@ def get_mask_account(card_number: Union[str, int]) -> str:
         Замаскированный номер счета или строка ошибки
     """
     value = str(card_number).strip()
-    cleaned = ''.join(value.split())
+    cleaned = "".join(value.split())
 
-    if '*' in cleaned:
+    if "*" in cleaned:
         return value
 
     if not cleaned:
