@@ -3,18 +3,18 @@ import pytest
 from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 
 
-def test_filter_by_currency(func_for_usd_and_description, func_usd):
-    result6 = list(filter_by_currency(func_for_usd_and_description))
+def test_filter_by_currency(func_for_usd_and_description, fuck_with_code, func_usd):
+    result6 = list(filter_by_currency(func_for_usd_and_description, fuck_with_code))
     assert result6 == list(func_usd)
 
 
-def test_transaction_descriptions(func_for_usd_and_description, func_desc):
+def test_transaction_descriptions(func_for_usd_and_description, fuck_with_code, func_desc):
     result7 = list(transaction_descriptions(func_for_usd_and_description))
     assert result7 == list(func_desc)
 
 
 @pytest.mark.parametrize(
-    "transactions, expected",
+    "transactions, code, expected",
     [
         (
             [  # Список с транзакцией в USD
@@ -31,6 +31,8 @@ def test_transaction_descriptions(func_for_usd_and_description, func_desc):
                     "to": "Счет 14211924144426031657",
                 }
             ],
+                "USD" # Код
+            ,
             [  # Ожидаем список с этой транзакцией
                 {
                     "id": 594226727,
@@ -55,7 +57,18 @@ def test_transaction_descriptions(func_for_usd_and_description, func_desc):
                     "to": "Счет 14211924144426031657",
                 }
             ],
-            [],  # Ожидаем пустой список
+                "RUB", # Код,
+            [
+                {
+                    "id": 594226727,
+                    "state": "CANCELED",
+                    "date": "2018-09-12T21:27:25.241689",
+                    "operationAmount": {"amount": "67314.70", "currency": {"name": "руб.", "code": "RUB"}},  # Не USD
+                    "description": "Перевод организации",
+                    "from": "Visa Platinum 1246377376343588",
+                    "to": "Счет 14211924144426031657",
+                }
+            ],  # Ожидаем эту операцию
         ),
         (
             [  # Несколько транзакций, только одна в USD
@@ -63,6 +76,8 @@ def test_transaction_descriptions(func_for_usd_and_description, func_desc):
                 {"id": 2, "operationAmount": {"amount": "200", "currency": {"code": "EUR"}}},
                 {"id": 3, "operationAmount": {"amount": "300", "currency": {"code": "USD"}}},
             ],
+            "USD"
+            ,
             [  # Ожидаем только транзакции с USD
                 {"id": 1, "operationAmount": {"amount": "100", "currency": {"code": "USD"}}},
                 {"id": 3, "operationAmount": {"amount": "300", "currency": {"code": "USD"}}},
@@ -70,9 +85,10 @@ def test_transaction_descriptions(func_for_usd_and_description, func_desc):
         ),
     ],
 )
-def test_filter_by_currency_parametrized(transactions, expected):
+
+def test_filter_by_currency_parametrized(transactions,code, expected):
     # Преобразуем результат итератора в список для сравнения
-    actual_result = list(filter_by_currency(transactions))
+    actual_result = list(filter_by_currency(transactions, code))
     assert actual_result == expected
 
 

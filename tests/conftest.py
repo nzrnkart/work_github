@@ -90,6 +90,13 @@ def func_for_usd_and_description():
         },
     ]  # Это данные входные для первых двух функций
 
+@pytest.fixture
+def fuck_with_code():
+    return (
+        "USD" )
+
+
+
 
 @pytest.fixture
 def func_usd():

@@ -1,14 +1,14 @@
 from typing import Any, Generator, Iterator
 
-
-def filter_by_currency(iterations: list[Any]) -> Iterator[Any]:
+def filter_by_currency(iterations: list[Any], code: str) -> Iterator[Any]:
     """
     Функция обрабатывает список словарей по ключу "code" и значению "USD"
-    :param iterations: список словарей(также присутствуют списки внутри списка)
+    :param iterations, code: список словарей(также присутствуют списки внутри списка),
+     ключ "code" по которому будет сортировка
     :return: итератор по данным спискам
     """
     for iteration in iterations:
-        if iteration.get("operationAmount", {}).get("currency", {}).get("code") == "USD":
+        if iteration.get("operationAmount", {}).get("currency", {}).get("code") == code:
             yield iteration
 
 
